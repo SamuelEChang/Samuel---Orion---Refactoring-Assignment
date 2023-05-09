@@ -2,8 +2,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class FilePlagiarismChecker {
-    private String filePath;
-    private ArrayList<String> libraryFiles;
+    public String filePath;
+    public ArrayList<String> libraryFiles;
 
     public FilePlagiarismChecker(String filePath, String libraryPath) throws IOException {
         this.filePath = filePath;
@@ -30,17 +30,17 @@ public class FilePlagiarismChecker {
         }
     }
 
-    private int countLines(String filePath) throws IOException {
+    protected int countLines(String filePath) throws IOException {
         FileReadAndWrite fileReadAndWrite = new FileReadAndWrite(filePath);
         return fileReadAndWrite.countLines();
     }
 
-    private String readFile(String filePath) throws IOException {
+    protected String readFile(String filePath) throws IOException {
         FileReadAndWrite fileReadAndWrite = new FileReadAndWrite(filePath);
         return fileReadAndWrite.readFile();
     }
 
-    private ArrayList<String> getPlagiarizedLines(String fileContent, String libraryFileContent) {
+    protected ArrayList<String> getPlagiarizedLines(String fileContent, String libraryFileContent) {
         ArrayList<String> plagiarizedLines = new ArrayList<>();
         String[] fileLines = fileContent.split("\\r?\\n");
         String[] libraryFileLines = libraryFileContent.split("\\r?\\n");
