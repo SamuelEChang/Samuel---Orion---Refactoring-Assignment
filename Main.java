@@ -24,11 +24,14 @@ public class Main {
                 fileName = null;
             }
         }
-        // check if "results.csv" file already exists
+        
+         // Set the file path
         File file = new File("results.csv");
         String overwrite = "";
+         // Set the FileWriter to write to the file
         boolean fileExists = file.exists();
         BufferedWriter writer = null;
+        // check if "results.csv" file already exists
         if (fileExists) {
             System.out.println("File 'results.csv' already exists. Do you want to overwrite it? (yes/no)");
             overwrite = scanner.nextLine();
