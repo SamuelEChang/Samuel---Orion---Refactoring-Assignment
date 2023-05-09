@@ -19,9 +19,9 @@ public class PlagiarismResultsFile extends FilePlagiarismChecker{
         // initialize a BufferedWriter object as null
         BufferedWriter writer = null;
         // check if the value of 'overwrite' is "yes" ignoring the case
-        if (overwrite.equalsIgnoreCase("yes")){
+        if (overwrite.equalsIgnoreCase("yes")) {
             // create a new BufferedWriter object and open a new FileWriter with the specified file name
-            writer = new BufferedWriter(new FileWriter(file));
+            writer = new BufferedWriter(new FileWriter(file, false)); // pass 'false' as the second argument to FileWriter to indicate that the file should be overwritten
             // write a header row in the CSV file
             writer.write("File Name, Line Number, Copied, Similarity\n");
         }
@@ -50,7 +50,7 @@ public class PlagiarismResultsFile extends FilePlagiarismChecker{
             ArrayList<String> plagiarizedLines = getPlagiarizedLines(fileContent, libraryFileContent);
             // check if there are plagiarized lines and if the BufferedWriter object is not null
             if (plagiarizedLines.size() > 0 && writer != null) {
-                // iterate through the plagiarized lines ArrayList
+                
                 for (String lineNumber : plagiarizedLines) {
                     writer.write(filePath + ", " + "Line " + lineNumber + ", " + libraryFilePath + ", " + fileContent.split("\\r?\\n")[Integer.parseInt(lineNumber) - 1] + "\n");
                 }
