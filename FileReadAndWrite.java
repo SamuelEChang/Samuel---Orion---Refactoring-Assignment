@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -10,13 +11,18 @@ public class FileReadAndWrite {
         this.fileName = fileName;
     }
 
-    public void findFiles(String dirName, String extension) {
-        File[] files = new File(dirName).listFiles((dir1, filename) -> filename.endsWith(extension));
-        if (files != null) {
+    public ArrayList<String> findFiles(String dir, String extension) {
+        ArrayList<String> fileNames = new ArrayList<>();
+        File directory = new File(dir);
+        if (directory.isDirectory()) {
+            File[] files = directory.listFiles();
             for (File file : files) {
-                System.out.println(file.getName());
+                if (file.isFile() && file.getName().endsWith(extension)) {
+                    fileNames.add(file.getPath());
+                }
             }
         }
+        return fileNames;
     }
 
     public int countLines() throws IOException {
@@ -42,4 +48,3 @@ public class FileReadAndWrite {
     }
 
 }
-

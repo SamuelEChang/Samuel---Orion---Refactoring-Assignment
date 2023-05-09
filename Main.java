@@ -1,27 +1,34 @@
 import java.io.IOException;
 import java.io.File;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        FileReadAndWrite fileRW = new FileReadAndWrite("library/MB1.txt");
-        String fileName = "MB1.txt";
-        try {
-            int lineCount = fileRW.countLines();
-            System.out.println("The file " + fileName + " has " + lineCount + " lines.");
-
-
-            File[] files = new File("library").listFiles();
-            for (File file : files) {
-                if (file.isFile()) {
-                    System.out.println(file.getName() + " " + file.length() + " bytes");
-                }
+        Scanner scanner = new Scanner(System.in);
+        String fileName = null;
+        // Loop until a valid file name is provided by the user
+        while (fileName == null) {
+            System.out.println("What file do you want to check for plagiarism?");
+            fileName = scanner.nextLine();
+            File file = new File(fileName);
+            // If the file does not exist, print an error message and set fileName to null to repeat the loop
+            if (!file.exists()) {
+                System.out.println("File path doesn't exist.");
+                fileName = null;
+            // If the file exists but is not a regular file, print an error message and set fileName to null to repeat the loop
+            } 
+            else if (!file.isFile()) {
+                System.out.println("Not a file.");
+                fileName = null;
             }
-            String fileContent = fileRW.readFile();
-            System.out.println("The content of " + fileName + " is:\n" + fileContent);
+        }
+        scanner.close();
 
+        try {
+            FilePlagiarismChecker plagiarismChecker = new FilePlagiarismChecker(fileName, "library");
+            plagiarismChecker.checkPlagiarism();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
-    
